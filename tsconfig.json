@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "lib": ["es2018"],
+    "module": "commonjs",
+    "target": "es2018",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "noImplicitAny": false,
+    "noEmit": false,
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "/test/*": [
+        "test/*"
+      ],
+      "/*": [
+        "src/*"
+      ]
+    },
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "@types",
+    "build",
+    "coverage",
+    "node_modules",
+    "jest.config.js"
+  ]
+}

@@ -1,0 +1,7 @@
+build/*
+coverage/*
+
+**/*.d.ts
+*.js
+
+/src/public/
