@@ -5,6 +5,9 @@ node_js:
 
 cache: yarn
 
+before_install:
+  - npm set //registry.npmjs.org/:_authToken $NPM_API_TOKEN
+
 script:
   - yarn lint
   - yarn test
