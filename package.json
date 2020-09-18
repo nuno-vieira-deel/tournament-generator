@@ -23,7 +23,7 @@
   "homepage": "https://github.com/nunovieira220/tournament-generator#readme",
   "scripts": {
     "build": "rm -rf build && babel src --out-dir build --extensions '.ts,.tsx'",
-    "build:windows":"rm -rf build && babel src --out-dir build --extensions \".ts,.tsx\"",
+    "build:windows": "rm -rf build && babel src --out-dir build --extensions \".ts,.tsx\"",
     "coverage": "jest --coverage",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "test": "jest --forceExit --runInBand",
