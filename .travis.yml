@@ -5,21 +5,10 @@ node_js:
 
 cache: yarn
 
-before_install:
-  - npm set //registry.npmjs.org/:_authToken $NPM_API_TOKEN
-
 script:
   - yarn lint
   - yarn test
 
-before_deploy:
-  - yarn build
-
-deploy:
-  provider: npm
-  email: "$NPM_EMAIL"
-  api_key: "$NPM_API_TOKEN"
-  edge: true
-  skip_cleanup: true
-  on:
-    tags: true
+branches:
+  only: 
+    - master

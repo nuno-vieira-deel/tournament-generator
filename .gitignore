@@ -2,6 +2,7 @@ node_modules
 coverage
 
 *.rest
+*.note
 
 .vscode
 .DS_Store
