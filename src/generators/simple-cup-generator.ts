@@ -4,24 +4,76 @@
 
 import { GeneratorResponse, GeneratorGame } from '/interfaces';
 import { getErrorResponse, shuffle } from '/utils/general-util';
+import { v4 } from 'uuid';
+
+/*
+ * Constants
+*/
+
+const TO_BE_DEFINED = 'TO_BE_DEFINED';
 
 /*
  * Export generator
 */
 
 export default (teams: string[]): GeneratorResponse => {
-  if(Math.log2(teams.length) % 1 !== 0) {
-    return getErrorResponse('Inadequate number of teams', 422);
+  if(teams.includes(TO_BE_DEFINED)) {
+    return getErrorResponse('Invalid team names', 422);
   }
 
   const teamList = shuffle(teams);
   const data: GeneratorGame[] = [];
 
-  for(let i = 0; i < teamList.length; i += 2) {
+  const length = teamList.length;
+  const logLength = Math.log2(length);
+  const multiRounds = logLength % 1 !== 0;
+  const topRoundTeamsNumber = Math.pow(2, Math.floor(logLength));
+  let lowRoundIndex = topRoundTeamsNumber;
+
+  for(let i = 0; i < topRoundTeamsNumber; i += 2) {
+    const customData = {};
+    let homeTeam = teamList[i];
+    let awayTeam = teamList[i+1];
+
+    if(multiRounds) {
+      // 1st round game for home spot on the 2nd round game
+      if(lowRoundIndex < length) {
+        const id = v4();
+        data.push({
+          awayTeam: teamList[lowRoundIndex],
+          homeTeam,
+          id,
+          round: 1
+        });
+
+        customData['homeTeam'] = id;
+        homeTeam = TO_BE_DEFINED;
+        lowRoundIndex++;
+      }
+
+      // 1nd round game for away spot on the 2nd round game
+      if(lowRoundIndex < length) {
+        const id = v4();
+        data.push({
+          awayTeam,
+          homeTeam: teamList[lowRoundIndex],
+          id,
+          round: 1
+        });
+
+        customData['awayTeam'] = id;
+        awayTeam = TO_BE_DEFINED;
+        lowRoundIndex++;
+      }
+    }
+
+    // 2nd round game
     data.push({
-      awayTeam: teamList[i+1],
-      homeTeam: teamList[i],
-      round: 1
+      awayTeam,
+      customData,
+      id: v4(),
+      homeTeam,
+      round: multiRounds ? 2 : 1
     });
   }
   

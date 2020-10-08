@@ -1,11 +1,14 @@
 export interface GeneratorError {
+  customData?: Record<string, unknown>
   message: string
   status: number
 }
 
 export interface GeneratorGame {
   awayTeam: string,
+  customData?: Record<string, unknown>
   homeTeam: string,
+  id?: string,
   round: number,
   score?: string
 }

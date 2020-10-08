@@ -7,26 +7,76 @@ exports["default"] = void 0;
 
 var _generalUtil = require("../utils/general-util");
 
+var _uuid = require("uuid");
+
 /*
  * Dependencies
 */
 
 /*
+ * Constants
+*/
+var TO_BE_DEFINED = 'TO_BE_DEFINED';
+/*
  * Export generator
 */
+
 var _default = function _default(teams) {
-  if (Math.log2(teams.length) % 1 !== 0) {
-    return (0, _generalUtil.getErrorResponse)('Inadequate number of teams', 422);
+  if (teams.includes(TO_BE_DEFINED)) {
+    return (0, _generalUtil.getErrorResponse)('Invalid team names', 422);
   }
 
   var teamList = (0, _generalUtil.shuffle)(teams);
   var data = [];
+  var length = teamList.length;
+  var logLength = Math.log2(length);
+  var multiRounds = logLength % 1 !== 0;
+  var topRoundTeamsNumber = Math.pow(2, Math.floor(logLength));
+  var lowRoundIndex = topRoundTeamsNumber;
 
-  for (var i = 0; i < teamList.length; i += 2) {
+  for (var i = 0; i < topRoundTeamsNumber; i += 2) {
+    var customData = {};
+    var homeTeam = teamList[i];
+    var awayTeam = teamList[i + 1];
+
+    if (multiRounds) {
+      // 1st round game for home spot on the 2nd round game
+      if (lowRoundIndex < length) {
+        var id = (0, _uuid.v4)();
+        data.push({
+          awayTeam: teamList[lowRoundIndex],
+          homeTeam: homeTeam,
+          id: id,
+          round: 1
+        });
+        customData['homeTeam'] = id;
+        homeTeam = TO_BE_DEFINED;
+        lowRoundIndex++;
+      } // 1nd round game for away spot on the 2nd round game
+
+
+      if (lowRoundIndex < length) {
+        var _id = (0, _uuid.v4)();
+
+        data.push({
+          awayTeam: awayTeam,
+          homeTeam: teamList[lowRoundIndex],
+          id: _id,
+          round: 1
+        });
+        customData['awayTeam'] = _id;
+        awayTeam = TO_BE_DEFINED;
+        lowRoundIndex++;
+      }
+    } // 2nd round game
+
+
     data.push({
-      awayTeam: teamList[i + 1],
-      homeTeam: teamList[i],
-      round: 1
+      awayTeam: awayTeam,
+      customData: customData,
+      id: (0, _uuid.v4)(),
+      homeTeam: homeTeam,
+      round: multiRounds ? 2 : 1
     });
   }
 

@@ -15,18 +15,10 @@ describe('Simple cup generator test', () => {
     expect(response).toEqual({ data: [], errors: [{ message: 'Unsupported generator type', status: 422 }] });
   });
 
-  it('Fail to generate due to team list containing invalid number of teams', async () => {
-    const teams = [
-      'Porto',
-      'Benfica',
-      'Braga',
-      'Sporting',
-      'Vitória'
-    ];
+  it('Fail to generate due to invalid team names', async () => {
+    const response = generator(['Porto', 'Benfica', 'Sporting', 'TO_BE_DEFINED'], { type: 'simple-cup' });
 
-    const response = generator(teams, { type: 'simple-cup' });
-
-    expect(response).toEqual({ data: [], errors: [{ message: 'Inadequate number of teams', status: 422 }] });
+    expect(response).toEqual({ data: [], errors: [{ message: 'Invalid team names', status: 422 }] });
   });
 
   it('Generate a new competition with no teams', async () => {
@@ -71,5 +63,57 @@ describe('Simple cup generator test', () => {
     const response = generator(teams, { type: 'simple-cup' });
 
     expect(response.data.length).toEqual(8);
+  });
+
+  it('Generate a new competition with 12 teams', async () => {
+    const teams = [
+      'Porto',
+      'Benfica',
+      'Braga',
+      'Sporting',
+      'Rio Ave',
+      'Famalicão',
+      'Guimarães',
+      'Moreirense',
+      'Santa Clara',
+      'Gil Vicente',
+      'Marítimo',
+      'Boavista'
+    ];
+
+    const response = generator(teams, { type: 'simple-cup' });
+    const lowerRoundGames = response.data.filter(game => game.round === 1);
+
+    lowerRoundGames.forEach(game => {
+      const top = response.data.filter(g => g.customData?.awayTeam === game.id || g.customData?.homeTeam === game.id);
+
+      expect(top.length).toEqual(1);
+      expect(top[0].round).toEqual(2);
+    });
+
+    expect(response.data.filter(game => game.awayTeam !== 'TO_BE_DEFINED' && game.homeTeam === 'TO_BE_DEFINED').length).toEqual(0);
+  });
+
+  it('Generate a new competition with 13 teams', async () => {
+    const teams = [
+      'Porto',
+      'Benfica',
+      'Braga',
+      'Sporting',
+      'Rio Ave',
+      'Famalicão',
+      'Guimarães',
+      'Moreirense',
+      'Santa Clara',
+      'Gil Vicente',
+      'Marítimo',
+      'Boavista',
+      'Paços de Ferreira'
+    ];
+
+    const response = generator(teams, { type: 'simple-cup' });
+
+    expect(response.data.filter(game => game.awayTeam === 'TO_BE_DEFINED' && game.homeTeam === 'TO_BE_DEFINED').length).toEqual(2);
+    expect(response.data.filter(game => game.awayTeam !== 'TO_BE_DEFINED' && game.homeTeam === 'TO_BE_DEFINED').length).toEqual(1);
   });
 });

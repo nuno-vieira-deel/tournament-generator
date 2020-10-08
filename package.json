@@ -24,6 +24,7 @@
   "scripts": {
     "build": "rm -rf build && babel src --out-dir build --extensions \".ts,.tsx\"",
     "coverage": "jest --coverage",
+    "emit": "tsc --declaration --outDir ./build --emitDeclarationOnly --declarationMap --allowJs false --checkJs false src/*",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "test": "jest --forceExit --runInBand",
     "preversion": "yarn test && yarn lint",
@@ -59,6 +60,7 @@
     "typescript": "^3.9.7"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://npm.pkg.github.com/"
   }
 }
