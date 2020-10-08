@@ -1,6 +1,6 @@
 {
   "name": "tournament-generator",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "main": "build/index.js",
   "license": "MIT",
   "author": {
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nunovieira220/tournament-generator.git"
+    "url": "git://github.com/nunovieira220/tournament-generator.git"
   },
   "bugs": {
     "url": "https://github.com/nunovieira220/tournament-generator/issues"
@@ -60,7 +60,6 @@
     "typescript": "^3.9.7"
   },
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com/"
+    "access": "public"
   }
 }
