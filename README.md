@@ -52,11 +52,15 @@ games = [
 
 ### Properties
 
-At the moment the only supported property is the type and there are three possible tournament types to generate.
+At the moment the only supported property is the type and there are three possible tournament types to generate:
 
-- `double-round`: A championship competition where teams play against each other twice, one at home and one away. It is based on round robin rotation and shuffling.
-- `single-round`: A championship competition where teams play against each other one single time. It is based on round robin rotation and shuffling.
-- `simple-cup`: A cup competition. It basically generates the first round and the rest of the competition is based on the order of the games.
+- `double-round`: A championship competition where teams play against each other twice, one at home and one away.
+
+- `single-round`: A championship competition where teams play against each other one single time.
+
+- `simple-cup`: A cup competition that basically generates the first round (or the first two rounds) randomly.
+
+You can see a better description of the competition types [here](docs/competition-type.md).
 
 ## Test
 
@@ -73,7 +77,6 @@ yarn test
 ## Future work
 
 In the future, the objective is to:
-- Add possibility to support cup competitions when receiving a number of teams that are not on the 2^n sequence by adding an extra round.
 - Add draw pots to cup competitions which brings the objective of creating cups based on groups.
 - Add plugin support for entire competitions like Champions League or Europa League. **
 - Add full competition management like classifications, leaderboards, etc. **
