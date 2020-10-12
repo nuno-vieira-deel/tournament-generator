@@ -1,4 +1,4 @@
-# Tournament generator
+# Tournament generator [![Build Status](https://travis-ci.org/nunovieira220/tournament-generator.svg?branch=master)](https://travis-ci.org/nunovieira220/tournament-generator)
 
 Javascript package to generate tournaments automatically.
 
