@@ -116,4 +116,28 @@ describe('Simple cup generator test', () => {
     expect(response.data.filter(game => game.awayTeam === 'TO_BE_DEFINED' && game.homeTeam === 'TO_BE_DEFINED').length).toEqual(2);
     expect(response.data.filter(game => game.awayTeam !== 'TO_BE_DEFINED' && game.homeTeam === 'TO_BE_DEFINED').length).toEqual(1);
   });
+
+  it('Generate a new competition with 13 teams with specific toBeDefined value', async () => {
+    const toBeDefinedValue = 'Waiting for 1st round';
+    const teams = [
+      'Porto',
+      'Benfica',
+      'Braga',
+      'Sporting',
+      'Rio Ave',
+      'Famalicão',
+      'Guimarães',
+      'Moreirense',
+      'Santa Clara',
+      'Gil Vicente',
+      'Marítimo',
+      'Boavista',
+      'Paços de Ferreira'
+    ];
+
+    const response = generator(teams, { toBeDefinedValue, type: 'simple-cup' });
+
+    expect(response.data.filter(game => game.awayTeam === toBeDefinedValue && game.homeTeam === toBeDefinedValue).length).toEqual(2);
+    expect(response.data.filter(game => game.awayTeam !== toBeDefinedValue && game.homeTeam === toBeDefinedValue).length).toEqual(1);
+  });
 });

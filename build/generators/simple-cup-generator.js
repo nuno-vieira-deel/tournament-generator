@@ -16,13 +16,15 @@ var _uuid = require("uuid");
 /*
  * Constants
 */
-var TO_BE_DEFINED = 'TO_BE_DEFINED';
+var TO_BE_DEFINED_CONSTANT = 'TO_BE_DEFINED';
 /*
  * Export generator
 */
 
-var _default = function _default(teams) {
-  if (teams.includes(TO_BE_DEFINED)) {
+var _default = function _default(teams, options) {
+  var toBeDefined = options.toBeDefinedValue || TO_BE_DEFINED_CONSTANT;
+
+  if (teams.includes(toBeDefined)) {
     return (0, _generalUtil.getErrorResponse)('Invalid team names', 422);
   }
 
@@ -50,7 +52,7 @@ var _default = function _default(teams) {
           round: 1
         });
         customData['homeTeam'] = id;
-        homeTeam = TO_BE_DEFINED;
+        homeTeam = toBeDefined;
         lowRoundIndex++;
       } // 1nd round game for away spot on the 2nd round game
 
@@ -65,7 +67,7 @@ var _default = function _default(teams) {
           round: 1
         });
         customData['awayTeam'] = _id;
-        awayTeam = TO_BE_DEFINED;
+        awayTeam = toBeDefined;
         lowRoundIndex++;
       }
     } // 2nd round game
