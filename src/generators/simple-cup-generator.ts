@@ -2,7 +2,7 @@
  * Dependencies
 */
 
-import { GeneratorResponse, GeneratorGame } from '/interfaces';
+import { GeneratorResponse, GeneratorGame, GeneratorOptions } from '/interfaces';
 import { getErrorResponse, shuffle } from '/utils/general-util';
 import { v4 } from 'uuid';
 
@@ -10,14 +10,16 @@ import { v4 } from 'uuid';
  * Constants
 */
 
-const TO_BE_DEFINED = 'TO_BE_DEFINED';
+const TO_BE_DEFINED_CONSTANT = 'TO_BE_DEFINED';
 
 /*
  * Export generator
 */
 
-export default (teams: string[]): GeneratorResponse => {
-  if(teams.includes(TO_BE_DEFINED)) {
+export default (teams: string[], options: GeneratorOptions): GeneratorResponse => {
+  const toBeDefined = options.toBeDefinedValue || TO_BE_DEFINED_CONSTANT;
+
+  if(teams.includes(toBeDefined)) {
     return getErrorResponse('Invalid team names', 422);
   }
 
@@ -47,7 +49,7 @@ export default (teams: string[]): GeneratorResponse => {
         });
 
         customData['homeTeam'] = id;
-        homeTeam = TO_BE_DEFINED;
+        homeTeam = toBeDefined;
         lowRoundIndex++;
       }
 
@@ -62,7 +64,7 @@ export default (teams: string[]): GeneratorResponse => {
         });
 
         customData['awayTeam'] = id;
-        awayTeam = TO_BE_DEFINED;
+        awayTeam = toBeDefined;
         lowRoundIndex++;
       }
     }

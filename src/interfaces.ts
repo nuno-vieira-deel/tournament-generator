@@ -14,6 +14,7 @@ export interface GeneratorGame {
 }
 
 export interface GeneratorOptions {
+  toBeDefinedValue?: string,
   type: string
 }
 
