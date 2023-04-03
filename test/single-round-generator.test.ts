@@ -1,12 +1,12 @@
 /*
  * Dependencies
-*/
+ */
 
 import generator from '/index';
 
 /*
  * Test
-*/
+ */
 
 describe('Single round generator test', () => {
   it('Fail to generate due to unsupported generator type', async () => {

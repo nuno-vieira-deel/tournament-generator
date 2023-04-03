@@ -1,12 +1,12 @@
 /*
  * Dependencies
-*/
+ */
 
 import generator from '/index';
 
 /*
  * Test
-*/
+ */
 
 describe('Simple cup generator test', () => {
   it('Fail to generate due to unsupported generator type', async () => {
@@ -36,7 +36,7 @@ describe('Simple cup generator test', () => {
     ];
 
     const response = generator(teams, { type: 'simple-cup' });
-    
+
     expect(response.data.length).toEqual(2);
   });
 
@@ -63,6 +63,35 @@ describe('Simple cup generator test', () => {
     const response = generator(teams, { type: 'simple-cup' });
 
     expect(response.data.length).toEqual(8);
+  });
+
+  it('Generate a new complete competition with 16 teams', async () => {
+    const teams = [
+      'Porto',
+      'Benfica',
+      'Braga',
+      'Sporting',
+      'Rio Ave',
+      'Famalicão',
+      'Guimarães',
+      'Moreirense',
+      'Santa Clara',
+      'Gil Vicente',
+      'Marítimo',
+      'Boavista',
+      'Paços de Ferreira',
+      'Tondela',
+      'Belenenses',
+      'Portimonense'
+    ];
+
+    const response = generator(teams, { completeCup: true, type: 'simple-cup' });
+
+    expect(response.data.length).toEqual(15);
+    expect(response.data.filter(game => game.round === 1).length).toEqual(8);
+    expect(response.data.filter(game => game.round === 2).length).toEqual(4);
+    expect(response.data.filter(game => game.round === 3).length).toEqual(2);
+    expect(response.data.filter(game => game.round === 4).length).toEqual(1);
   });
 
   it('Generate a new competition with 12 teams', async () => {
@@ -94,6 +123,31 @@ describe('Simple cup generator test', () => {
     expect(response.data.filter(game => game.awayTeam !== 'TO_BE_DEFINED' && game.homeTeam === 'TO_BE_DEFINED').length).toEqual(0);
   });
 
+  it('Generate a new complete competition with 12 teams', async () => {
+    const teams = [
+      'Porto',
+      'Benfica',
+      'Braga',
+      'Sporting',
+      'Rio Ave',
+      'Famalicão',
+      'Guimarães',
+      'Moreirense',
+      'Santa Clara',
+      'Gil Vicente',
+      'Marítimo',
+      'Boavista'
+    ];
+
+    const response = generator(teams, { completeCup: true, type: 'simple-cup' });
+
+    expect(response.data.length).toEqual(11);
+    expect(response.data.filter(game => game.round === 1).length).toEqual(4);
+    expect(response.data.filter(game => game.round === 2).length).toEqual(4);
+    expect(response.data.filter(game => game.round === 3).length).toEqual(2);
+    expect(response.data.filter(game => game.round === 4).length).toEqual(1);
+  });
+
   it('Generate a new competition with 13 teams', async () => {
     const teams = [
       'Porto',
@@ -117,7 +171,7 @@ describe('Simple cup generator test', () => {
     expect(response.data.filter(game => game.awayTeam !== 'TO_BE_DEFINED' && game.homeTeam === 'TO_BE_DEFINED').length).toEqual(1);
   });
 
-  it('Generate a new competition with 13 teams with specific toBeDefined value', async () => {
+  it('Generate a new competition with 13 teams with specific `toBeDefined` value', async () => {
     const toBeDefinedValue = 'Waiting for 1st round';
     const teams = [
       'Porto',

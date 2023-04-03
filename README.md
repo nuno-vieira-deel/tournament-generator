@@ -1,4 +1,4 @@
-# Tournament generator [![Build Status](https://travis-ci.org/nunovieira220/tournament-generator.svg?branch=master)](https://travis-ci.org/nunovieira220/tournament-generator)
+# Tournament generator
 
 Javascript package to generate tournaments automatically.
 
@@ -73,12 +73,3 @@ or
 ```sh
 yarn test
 ```
-
-## Future work
-
-In the future, the objective is to:
-- Add draw pots to cup competitions which brings the objective of creating cups based on groups.
-- Add plugin support for entire competitions like Champions League or Europa League. **
-- Add full competition management like classifications, leaderboards, etc. **
-
-** Not sure if it makes sense to be integrated in this package or on a different one.

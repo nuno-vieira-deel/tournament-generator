@@ -24,12 +24,12 @@
   "scripts": {
     "build": "rm -rf build && babel src --out-dir build --extensions \".ts,.tsx\"",
     "coverage": "jest --coverage",
-    "emit": "tsc --declaration --outDir ./build --emitDeclarationOnly --declarationMap --allowJs false --checkJs false src/*",
+    "emit": "tsc --declaration --outDir ./build --emitDeclarationOnly --declarationMap --allowJs false --checkJs false",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
     "test": "jest --forceExit --runInBand",
-    "preversion": "yarn test && yarn lint",
+    "pre-version": "yarn test && yarn lint",
     "version": "yarn build && git add -A build",
-    "postversion": "git push && git push --tags"
+    "post-version": "git push && git push --tags"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -61,5 +61,8 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "uuid": "^9.0.0"
   }
 }
