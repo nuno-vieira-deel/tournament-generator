@@ -15,11 +15,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /*
  * Dependencies
-*/
+ */
 
 /*
  * Generators
-*/
+ */
 var _default = {
   'double-round': _doubleRoundGenerator["default"],
   'simple-cup': _simpleCupGenerator["default"],

@@ -7,11 +7,11 @@ exports.getErrorResponse = exports.shuffle = void 0;
 
 /*
  * Dependencies
-*/
+ */
 
 /*
  * Shuffle utility
-*/
+ */
 var shuffle = function shuffle(array) {
   var i = array.length;
 
@@ -26,7 +26,7 @@ var shuffle = function shuffle(array) {
 };
 /*
  * Get error response utility
-*/
+ */
 
 
 exports.shuffle = shuffle;

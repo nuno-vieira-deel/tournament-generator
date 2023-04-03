@@ -11,11 +11,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /*
  * Dependencies
-*/
+ */
 
 /*
  * Export generator
-*/
+ */
 var _default = function _default(teams) {
   return {
     data: (0, _roundRobinRotationUtil["default"])(teams, true)

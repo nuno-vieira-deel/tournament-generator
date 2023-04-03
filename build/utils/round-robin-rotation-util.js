@@ -11,15 +11,19 @@ var _uuid = require("uuid");
 
 /*
  * Dependencies
-*/
+ */
 
 /*
  * Round robin rotation method
-*/
+ */
 var _default = function _default(teams, isDouble) {
   var oddExtraUuid = (0, _uuid.v4)();
   var lengthOdd = teams.length % 2 === 1;
-  if (lengthOdd) teams.push(oddExtraUuid);
+
+  if (lengthOdd) {
+    teams.push(oddExtraUuid);
+  }
+
   var firstRound = [];
   var secondRound = [];
   var teamList = (0, _generalUtil.shuffle)(teams);
@@ -57,9 +61,14 @@ var _default = function _default(teams, isDouble) {
   }
 
   var fixtures = firstRound.concat(secondRound);
-  return lengthOdd ? fixtures.filter(function (g) {
+
+  if (!lengthOdd) {
+    return fixtures;
+  }
+
+  return fixtures.filter(function (g) {
     return g.homeTeam !== oddExtraUuid && g.awayTeam !== oddExtraUuid;
-  }) : fixtures;
+  });
 };
 
 exports["default"] = _default;

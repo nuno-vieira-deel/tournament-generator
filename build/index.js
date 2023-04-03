@@ -13,11 +13,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 /*
  * Dependencies
-*/
+ */
 
 /*
  * Export main function
-*/
+ */
 var _default = function _default(teams, options) {
   var generator = _generators["default"][options.type];
 
