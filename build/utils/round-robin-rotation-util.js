@@ -7,8 +7,6 @@ exports["default"] = void 0;
 
 var _generalUtil = require("./general-util");
 
-var _uuid = require("uuid");
-
 /*
  * Dependencies
  */
@@ -17,7 +15,7 @@ var _uuid = require("uuid");
  * Round robin rotation method
  */
 var _default = function _default(teams, isDouble) {
-  var oddExtraUuid = (0, _uuid.v4)();
+  var oddExtraUuid = (0, _generalUtil.generateId)();
   var lengthOdd = teams.length % 2 === 1;
 
   if (lengthOdd) {

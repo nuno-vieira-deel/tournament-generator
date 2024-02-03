@@ -7,8 +7,6 @@ exports["default"] = void 0;
 
 var _generalUtil = require("../utils/general-util");
 
-var _uuid = require("uuid");
-
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -50,7 +48,7 @@ var generateMissingGamesUntilFinal = function generateMissingGamesUntilFinal(gam
           homeTeam: firstGame === null || firstGame === void 0 ? void 0 : firstGame.id,
           awayTeam: secondGame === null || secondGame === void 0 ? void 0 : secondGame.id
         },
-        id: (0, _uuid.v4)(),
+        id: (0, _generalUtil.generateId)(),
         homeTeam: toBeDefined,
         round: currentRound
       };
@@ -92,7 +90,7 @@ var _default = function _default(teams, options) {
     if (multiRounds) {
       // 1st round game for home spot on the 2nd round game
       if (lowRoundIndex < length) {
-        var id = (0, _uuid.v4)();
+        var id = (0, _generalUtil.generateId)();
         data.push({
           awayTeam: teamList[lowRoundIndex],
           homeTeam: homeTeam,
@@ -106,7 +104,7 @@ var _default = function _default(teams, options) {
 
 
       if (lowRoundIndex < length) {
-        var _id = (0, _uuid.v4)();
+        var _id = (0, _generalUtil.generateId)();
 
         data.push({
           awayTeam: awayTeam,
@@ -124,7 +122,7 @@ var _default = function _default(teams, options) {
     data.push({
       awayTeam: awayTeam,
       customData: customData,
-      id: (0, _uuid.v4)(),
+      id: (0, _generalUtil.generateId)(),
       homeTeam: homeTeam,
       round: perfectRound
     });

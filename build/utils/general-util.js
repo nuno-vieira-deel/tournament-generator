@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getErrorResponse = exports.shuffle = void 0;
+exports.generateId = exports.getErrorResponse = exports.shuffle = void 0;
 
 /*
  * Dependencies
@@ -40,5 +40,15 @@ var getErrorResponse = function getErrorResponse(message, status) {
     }]
   };
 };
+/*
+ * Generate id
+ */
+
 
 exports.getErrorResponse = getErrorResponse;
+
+var generateId = function generateId() {
+  return Date.now().toString(36) + '-' + Math.random().toString(36).substring(2, 8);
+};
+
+exports.generateId = generateId;
