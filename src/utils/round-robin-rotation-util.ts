@@ -3,15 +3,14 @@
  */
 
 import { GeneratorGame } from 'lib';
-import { shuffle } from '/utils/general-util';
-import { v4 } from 'uuid';
+import { generateId, shuffle } from '/utils/general-util';
 
 /*
  * Round robin rotation method
  */
 
 export default (teams: string[], isDouble: boolean): GeneratorGame[] => {
-  const oddExtraUuid = v4();
+  const oddExtraUuid = generateId();
   const lengthOdd = teams.length % 2 === 1;
 
   if (lengthOdd) {
