@@ -3,8 +3,7 @@
  */
 
 import { GeneratorResponse, GeneratorGame, GeneratorGameCustomData, GeneratorOptions } from 'lib';
-import { getErrorResponse, shuffle } from '/utils/general-util';
-import { v4 } from 'uuid';
+import { getErrorResponse, generateId, shuffle } from '/utils/general-util';
 
 /*
  * Constants
@@ -36,7 +35,7 @@ const generateMissingGamesUntilFinal = (games: Readonly<GeneratorGame[]>, round:
           homeTeam: firstGame?.id,
           awayTeam: secondGame?.id
         },
-        id: v4(),
+        id: generateId(),
         homeTeam: toBeDefined,
         round: currentRound
       };
@@ -72,7 +71,7 @@ export default (teams: string[], options: GeneratorOptions): GeneratorResponse =
   const perfectRound = multiRounds ? 2 : 1;
   let lowRoundIndex = topRoundTeamsNumber;
 
-  for(let i = 0; i < topRoundTeamsNumber; i += 2) {
+  for (let i = 0; i < topRoundTeamsNumber; i += 2) {
     const customData: GeneratorGameCustomData = {};
     let homeTeam = teamList[i];
     let awayTeam = teamList[i + 1];
@@ -80,7 +79,7 @@ export default (teams: string[], options: GeneratorOptions): GeneratorResponse =
     if (multiRounds) {
       // 1st round game for home spot on the 2nd round game
       if (lowRoundIndex < length) {
-        const id = v4();
+        const id = generateId();
 
         data.push({
           awayTeam: teamList[lowRoundIndex],
@@ -96,7 +95,7 @@ export default (teams: string[], options: GeneratorOptions): GeneratorResponse =
 
       // 1nd round game for away spot on the 2nd round game
       if (lowRoundIndex < length) {
-        const id = v4();
+        const id = generateId();
         data.push({
           awayTeam,
           homeTeam: teamList[lowRoundIndex],
@@ -114,7 +113,7 @@ export default (teams: string[], options: GeneratorOptions): GeneratorResponse =
     data.push({
       awayTeam,
       customData,
-      id: v4(),
+      id: generateId(),
       homeTeam,
       round: perfectRound
     });

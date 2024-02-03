@@ -26,3 +26,11 @@ export const shuffle = <T>(array: T[]): T[] => {
 export const getErrorResponse = (message: string, status: number): GeneratorResponse => {
   return { data: [], errors: [{ message, status }] };
 };
+
+/*
+ * Generate id
+ */
+
+export const generateId = (): string => {
+  return Date.now().toString(36) + '-' + Math.random().toString(36).substring(2, 8);
+};
